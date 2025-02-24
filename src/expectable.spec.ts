@@ -1,19 +1,28 @@
 import expect from ".";
 
+// Number
 expect(5).toBe<number>();
 // @ts-expect-error
 expect(5).toEqual(6);
 expect(5).toEqual(5);
+
+// String
 expect("str").toEqual("str");
 // @ts-expect-error
 expect("str").toEqual("notStr");
+
+// Boolean
 expect(true).toEqual(true);
-expect(undefined).toBeUndefined();
+
+// Defined & Undefined
 expect(1).toBeDefined();
+expect(undefined).toBeUndefined();
 // @ts-expect-error
 expect(undefined).toBeDefined();
 // @ts-expect-error
 expect("abc").toBeUndefined();
+
+// Empty
 expect({}).toBeEmpty();
 // @ts-expect-error
 expect({}).not.toBeEmpty();
@@ -27,6 +36,7 @@ expect([]).not.toBeEmpty();
 expect([1, 2, 3]).toBeEmpty();
 expect([1, 2, 3]).not.toBeEmpty();
 
+// Unknown
 declare const _unknown: unknown;
 expect(_unknown).toBeUnknown();
 // @ts-expect-error
@@ -39,6 +49,8 @@ expect(_unknown).not.toBeNever();
 // @ts-expect-error
 expect(_unknown).toBeNever();
 
+
+// Never
 declare const _never: never;
 expect(_never).toBeNever();
 // @ts-expect-error
