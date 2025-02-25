@@ -34,7 +34,7 @@ export interface ExpectableObject<T extends object, Not extends boolean = false>
   to: ExpectableObject<T, Not>;
   not: ExpectableObject<T, Not extends true ? false : true>;
   haveProperty: <const U extends string>(
-    ...property: ArgsHelper<U, keyof T, Not>
+    ...property: ArgsHelper<keyof T, U, Not>
   ) => void;
   beEmpty: BeHelper<T, IsNever<keyof T, T, never>, Not>;
 }
