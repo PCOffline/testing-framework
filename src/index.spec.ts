@@ -38,9 +38,18 @@ expect<() => void>().to.haveParameters<[string]>();
 expect<never>().to.beNever();
 
 
+expect<[]>().to.not.haveProperty('0');
+expect<[string]>().to.haveProperty('0');
 // TODO: Unions
 expect<[] | [string]>().to.beArray()
-expect<[] | [string]>().to.haveProperty<'0'>()
+// @ts-expect-error '0' is not valid for an empty array
+expect<[] | [string]>().to.haveProperty('0')
 // @ts-expect-error
 expect<[] | [string]>().to.haveProperty('abc')
 expect<[] | [string]>().to.not.haveProperty('abc')
+expect <readonly []>().to.haveProperty('length')
+expect <readonly [string]>().to.haveProperty('length')
+expect <readonly [] | readonly [number]>().to.not.haveProperty('abc')
+expect <readonly [] | readonly [number]>().to.haveProperty('length')
+// @ts-expect-error
+expect <readonly [] | readonly [number]>().to.haveProperty('abc')

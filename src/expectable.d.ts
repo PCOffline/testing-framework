@@ -30,32 +30,32 @@ export interface Expectable<T, Not extends boolean = false> {
 }
 
 export interface ExpectableObject<T extends object, Not extends boolean = false>
-  extends Expectable<T, Not> {
+  extends Omit<Expectable<T, Not>, 'to' | 'not'> {
   to: ExpectableObject<T, Not>;
   not: ExpectableObject<T, Not extends true ? false : true>;
   haveProperty: <const U extends string>(
-    ...property: NotHelper<U, keyof T, Not, [] | [U], [never]>
+    property: NotHelper<U, keyof T, Not, U, never>,
   ) => void;
   beEmpty: BeHelper<T, IsNever<keyof T, T, never>, Not>;
 }
 
-type ExpectableArray<
+interface ExpectableArray<
   T extends any[] | readonly any[],
   Not extends boolean = false,
-> = Omit<ExpectableObject<T, Not>, 'to' | 'not' | 'toBeEmpty'> & {
+> extends Omit<ExpectableObject<T, Not>, 'to' | 'not' | 'beEmpty'> {
   to: ExpectableArray<T, Not>;
   not: ExpectableArray<T, Not extends true ? false : true>;
   beEmpty: BeHelper<T, [] extends T ? T : never, Not>;
   beTuple: never;
-};
+}
 
 export interface ExpectableFunction<
   T extends (...args: any) => any,
   Not extends boolean = false,
-> extends Expectable<T, Not> {
+> extends Omit<Expectable<T, Not>, 'to' | 'not'> {
   to: ExpectableFunction<T, Not>;
   not: ExpectableFunction<T, Not extends true ? false : true>;
-  haveReturnType: ParamFunctionHelper<ReturnType<T>, Not>;
+  haveReturnType: EmptyFunctionHelper<ReturnType<T>, Not>;
   haveParameter: ParamFunctionHelper<Parameters<T>[number], Not>;
   haveParameters: <U extends any[]>(
     ...type: ArgsHelper<Parameters<T>, U, Not>
@@ -75,4 +75,4 @@ export type TypedExpectable<T> = IsNever<
     : T extends object
     ? ExpectableObject<T>
     : Expectable<T>
-> & Omit<Expectable<T>, 'to' | 'not'>
+>;
