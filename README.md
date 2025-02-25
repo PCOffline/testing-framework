@@ -4,11 +4,13 @@
 
 Test and assert your types
 
-```
-expect("abc").toBeString()
-expect("abc").toBeNumber() // Error!
+```ts
+expect("abc").to.BeString()
+// @ts-expect-error
+expect("abc").to.BeNumber()
 
-expect({ field: "abc" }).toBeObject()
-expect({ field: "abc" }).toBe<{ field: string }>()
-expect({ field: "abc" }).toBe<Record<string, string>>()
-expect({ field: "abc" }).not.toBeArray()
+expect({ field: "abc" }).to.beObject()
+expect({ field: "abc" }).to.be<{ field: string }>()
+expect({ field: "abc" }).to.equal({ field: "abc" })
+expect({ field: "abc" }).to.not.beArray()
+```
