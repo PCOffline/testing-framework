@@ -1,68 +1,68 @@
 import expect from ".";
 
 // Number
-expect(5).toBe<number>();
+expect(5).be<number>();
 // @ts-expect-error
-expect(5).toEqual(6);
-expect(5).toEqual(5);
+expect(5).equal(6);
+expect(5).equal(5);
 
 // String
-expect("str").toEqual("str");
+expect("str").equal("str");
 // @ts-expect-error
-expect("str").toEqual("notStr");
+expect("str").equal("notStr");
 
 // Boolean
-expect(true).toEqual(true);
+expect(true).equal(true);
 
 // Defined & Undefined
-expect(1).toBeDefined();
-expect(undefined).toBeUndefined();
+expect(1).beDefined();
+expect(undefined).beUndefined();
 // @ts-expect-error
-expect(undefined).toBeDefined();
+expect(undefined).beDefined();
 // @ts-expect-error
-expect("abc").toBeUndefined();
+expect("abc").beUndefined();
 
 // Empty
-expect({}).toBeEmpty();
+expect({}).beEmpty();
 // @ts-expect-error
-expect({}).not.toBeEmpty();
+expect({}).not.beEmpty();
 // @ts-expect-error
-expect<{ a: number }>().toBeEmpty();
-expect<{ a: number }>().not.toBeEmpty();
-expect([]).toBeEmpty();
+expect<{ a: number }>().beEmpty();
+expect<{ a: number }>().not.beEmpty();
+expect([]).beEmpty();
 // @ts-expect-error
-expect([]).not.toBeEmpty();
+expect([]).not.beEmpty();
 // @ts-expect-error
-expect([1, 2, 3]).toBeEmpty();
-expect([1, 2, 3]).not.toBeEmpty();
+expect([1, 2, 3]).beEmpty();
+expect([1, 2, 3]).not.beEmpty();
 
 // Unknown
 declare const _unknown: unknown;
-expect(_unknown).toBeUnknown();
+expect(_unknown).beUnknown();
 // @ts-expect-error
-expect(_unknown).not.toBeUnknown();
+expect(_unknown).not.beUnknown();
 // @ts-expect-error
-expect(_unknown).not.toBe<unknown>();
-expect(_unknown).toBe<unknown>();
-expect(_unknown).not.toBe<never>();
-expect(_unknown).not.toBeNever();
+expect(_unknown).not.be<unknown>();
+expect(_unknown).be<unknown>();
+expect(_unknown).not.be<never>();
+expect(_unknown).not.beNever();
 // @ts-expect-error
-expect(_unknown).toBeNever();
+expect(_unknown).beNever();
 
 
 // Never
 declare const _never: never;
-expect(_never).toBeNever();
+expect(_never).beNever();
 // @ts-expect-error
-expect(_never).not.toBeNever();
+expect(_never).not.beNever();
 // @ts-expect-error
-expect(_never).not.toBe<never>();
-expect(_never).toBe<never>();
-expect(_never).not.toBe<unknown>();
-expect(_never).not.toBeUnknown();
+expect(_never).not.be<never>();
+expect(_never).be<never>();
+expect(_never).not.be<unknown>();
+expect(_never).not.beUnknown();
 // @ts-expect-error
-expect(_never).toBeUnknown();
-expect(_never).not.toBeFunction();
+expect(_never).beUnknown();
+expect(_never).not.beFunction();
 // @ts-expect-error
-expect(_never).toBeFunction();
+expect(_never).beFunction();
 
