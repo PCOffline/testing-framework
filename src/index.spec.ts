@@ -37,4 +37,10 @@ expect<() => void>().to.haveParameter<string>();
 expect<() => void>().to.haveParameters<[string]>();
 expect<never>().to.beNever();
 
-expect([]).to
+
+// TODO: Unions
+expect<[] | [string]>().to.beArray()
+expect<[] | [string]>().to.haveProperty<'0'>()
+// @ts-expect-error
+expect<[] | [string]>().to.haveProperty('abc')
+expect<[] | [string]>().to.not.haveProperty('abc')

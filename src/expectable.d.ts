@@ -34,7 +34,7 @@ export interface ExpectableObject<T extends object, Not extends boolean = false>
   to: ExpectableObject<T, Not>;
   not: ExpectableObject<T, Not extends true ? false : true>;
   haveProperty: <const U extends string>(
-    ...property: ArgsHelper<keyof T, U, Not>
+    ...property: NotHelper<U, keyof T, Not, [] | [U], [never]>
   ) => void;
   beEmpty: BeHelper<T, IsNever<keyof T, T, never>, Not>;
 }
@@ -55,8 +55,8 @@ export interface ExpectableFunction<
 > extends Expectable<T, Not> {
   to: ExpectableFunction<T, Not>;
   not: ExpectableFunction<T, Not extends true ? false : true>;
-  haveReturnType: FunctionHelper<ReturnType<T>, Not>;
-  haveParameter: FunctionHelper<Parameters<T>[number], Not>;
+  haveReturnType: ParamFunctionHelper<ReturnType<T>, Not>;
+  haveParameter: ParamFunctionHelper<Parameters<T>[number], Not>;
   haveParameters: <U extends any[]>(
     ...type: ArgsHelper<Parameters<T>, U, Not>
   ) => void;
