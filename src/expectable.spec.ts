@@ -55,6 +55,7 @@ declare const _never: never;
 expect(_never).beNever();
 // @ts-expect-error
 expect(_never).not.beNever();
+expect(_never).to.equal(_never);
 // @ts-expect-error
 expect(_never).not.be<never>();
 expect(_never).be<never>();
