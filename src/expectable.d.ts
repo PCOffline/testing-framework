@@ -2,7 +2,7 @@ import type { IsAny, IsNever, IsUnknown } from 'type-plus';
 import type {
   EmptyFunctionHelper,
   ParamFunctionHelper,
-  NotHelper,
+  ExtendsHelper,
   ArgsHelper,
   BeHelper,
   ParamHelper,
@@ -34,7 +34,7 @@ export interface ExpectableObject<T extends object, Not extends boolean = false>
   to: ExpectableObject<T, Not>;
   not: ExpectableObject<T, Not extends true ? false : true>;
   haveProperty: <const U extends string>(
-    property: NotHelper<U, keyof T, Not, U, never>,
+    property: ExtendsHelper<U, keyof T, Not, U, never>,
   ) => void;
   beEmpty: BeHelper<T, IsNever<keyof T, T, never>, Not>;
 }
